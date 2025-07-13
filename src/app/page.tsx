@@ -11,10 +11,10 @@ export default function Home() {
 
   if (quoteManager.loading) {
     return (
-       <div className="flex min-h-screen w-full flex-col bg-background font-body">
+       <div className="flex min-h-screen w-full flex-col font-body">
         <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
           <h1 className="font-headline text-2xl font-semibold text-primary">
-            QuoteCraft Pro
+            Elsultan Halls
           </h1>
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:flex-row md:gap-8 md:p-6">
@@ -31,10 +31,10 @@ export default function Home() {
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-background font-body">
+    <div className="flex min-h-screen w-full flex-col font-body">
       <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
         <h1 className="font-headline text-2xl font-semibold text-primary">
-          QuoteCraft Pro
+          Elsultan Halls
         </h1>
         <div className="flex-grow"></div>
       </header>

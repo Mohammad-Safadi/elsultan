@@ -52,12 +52,15 @@ export default function PrintPage() {
   const subtotal = quote.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const tax = subtotal * TAX_RATE;
   const total = subtotal + tax;
+  const hasPrices = quote.items.some(item => item.price > 0);
+
+  const categories = Array.from(new Set(quote.items.map(item => item.category)));
 
   return (
-    <div className="p-8 md:p-12 font-body bg-white text-black max-w-4xl mx-auto">
+    <div className="p-8 md:p-12 font-body bg-white text-black max-w-4xl mx-auto min-h-screen">
         <header className="flex justify-between items-start pb-8 border-b-2 border-gray-200">
             <div>
-                <h1 className="font-headline text-5xl font-bold text-[#D4AF37]">QuoteCraft Pro</h1>
+                <h1 className="font-headline text-5xl font-bold text-[#D4AF37]">Elsultan Halls</h1>
                 <p className="text-gray-500 mt-2">Your Premier Catering Partner</p>
             </div>
             <div className="text-right">
@@ -80,48 +83,86 @@ export default function PrintPage() {
         </section>
 
         <section className="my-10">
-            <table className="w-full text-left">
-                <thead className="bg-gray-50">
-                    <tr>
-                        <th className="p-4 font-headline font-semibold text-gray-600">Item</th>
-                        <th className="p-4 font-headline font-semibold text-gray-600 text-center">Quantity</th>
-                        <th className="p-4 font-headline font-semibold text-gray-600 text-right">Unit Price</th>
-                        <th className="p-4 font-headline font-semibold text-gray-600 text-right">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {quote.items.map(item => (
-                        <tr key={item.uid} className="border-b border-gray-100">
-                            <td className="p-4 font-medium">{item.name}</td>
-                            <td className="p-4 text-center">{item.quantity}</td>
-                            <td className="p-4 text-right">${item.price.toFixed(2)}</td>
-                            <td className="p-4 text-right">${(item.price * item.quantity).toFixed(2)}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {categories.map(category => {
+                const categoryItems = quote.items.filter(item => item.category === category);
+                if (categoryItems.length === 0) return null;
+                
+                return (
+                    <div key={category} className="mb-8">
+                        <h3 className="font-headline text-xl font-semibold text-gray-700 mb-4 border-b-2 border-gray-200 pb-2 text-right">
+                            {category}
+                        </h3>
+                        <table className="w-full text-right" dir="rtl">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="p-4 font-headline font-semibold text-gray-600">الملاحظات</th>
+                                    {hasPrices && (
+                                      <>
+                                        <th className="p-4 font-headline font-semibold text-gray-600 text-left">السعر الإجمالي</th>
+                                        <th className="p-4 font-headline font-semibold text-gray-600 text-left">سعر الوحدة</th>
+                                      </>
+                                    )}
+                                    <th className="p-4 font-headline font-semibold text-gray-600">الصنف</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {categoryItems.map(item => (
+                                    <tr key={item.uid} className="border-b border-gray-100">
+                                        <td className="p-4 text-sm text-gray-600">{item.comment || '-'}</td>
+                                        {hasPrices && (
+                                          <>
+                                            <td className="p-4 text-left">${(item.price * item.quantity).toFixed(2)}</td>
+                                            <td className="p-4 text-left">${item.price.toFixed(2)}</td>
+                                          </>
+                                        )}
+                                        <td className="p-4 font-medium">{item.name}</td>
+                                    </tr>
+                                ))}
+                                <tr className="bg-gray-50 font-semibold">
+                                    <td className="p-4 text-sm text-gray-700" colSpan={hasPrices ? 3 : 1}>
+                                        إجمالي الأصناف في هذه الفئة: {categoryItems.length}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                );
+            })}
         </section>
 
-        <section className="flex justify-end my-8">
-            <div className="w-full max-w-sm space-y-4">
-                <div className="flex justify-between">
-                    <span className="text-gray-600">Subtotal:</span>
-                    <span className="font-medium">${subtotal.toFixed(2)}</span>
+        {hasPrices && (
+          <section className="flex justify-end my-8">
+              <div className="w-full max-w-sm space-y-4">
+                  <div className="flex justify-between">
+                      <span className="text-gray-600">Subtotal:</span>
+                      <span className="font-medium">${subtotal.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                      <span className="text-gray-600">Tax ({(TAX_RATE * 100).toFixed(0)}%):</span>
+                      <span className="font-medium">${tax.toFixed(2)}</span>
+                  </div>
+                  <div className="border-t-2 border-gray-200 pt-4 mt-4! flex justify-between">
+                      <span className="font-headline text-xl font-bold">Total:</span>
+                      <span className="font-bold text-xl text-[#D4AF37]">${total.toFixed(2)}</span>
+                  </div>
+              </div>
+          </section>
+        )}
+        
+        <footer className="pt-8 border-t-2 border-gray-200">
+            <div className="grid grid-cols-2 gap-8">
+                <div>
+                    <h3 className="font-headline text-lg font-semibold text-gray-700 mb-4">Customer Signature:</h3>
+                    <div className="border-b-2 border-gray-400 h-12 mb-2"></div>
+                    <p className="text-sm text-gray-600">Date: _________________</p>
                 </div>
-                <div className="flex justify-between">
-                    <span className="text-gray-600">Tax ({(TAX_RATE * 100).toFixed(0)}%):</span>
-                    <span className="font-medium">${tax.toFixed(2)}</span>
-                </div>
-                <div className="border-t-2 border-gray-200 pt-4 mt-4! flex justify-between">
-                    <span className="font-headline text-xl font-bold">Total:</span>
-                    <span className="font-bold text-xl text-[#D4AF37]">${total.toFixed(2)}</span>
+                <div>
+                    <h3 className="font-headline text-lg font-semibold text-gray-700 mb-4">Authorized Signature:</h3>
+                    <div className="border-b-2 border-gray-400 h-12 mb-2"></div>
+                    <p className="text-sm text-gray-600">Date: _________________</p>
+                    <p className="text-sm text-gray-600 mt-2">Elsultan Halls</p>
                 </div>
             </div>
-        </section>
-        
-        <footer className="pt-8 border-t-2 border-gray-200 text-center text-gray-500 text-sm">
-            <p>Thank you for considering QuoteCraft Pro for your event!</p>
-            <p>This quote is valid for 30 days. Prices are subject to change.</p>
         </footer>
     </div>
   );

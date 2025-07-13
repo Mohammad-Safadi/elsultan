@@ -11,6 +11,7 @@ export interface MealItem {
 export interface SelectedMeal extends MealItem {
   uid: string;
   quantity: number;
+  comment?: string;
 }
 
 export interface ClientInfo {

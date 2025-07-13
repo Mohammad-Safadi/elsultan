@@ -87,7 +87,7 @@ export function useQuote() {
     }
   }, [currentQuote, updateCurrentQuote]);
 
-  const addMeal = useCallback((meal: MealItem) => {
+  const addMeal = useCallback((meal: MealItem & { comment?: string }) => {
     if (currentQuote) {
       const existingItem = currentQuote.items.find(item => item.id === meal.id);
       if (existingItem) {
@@ -126,14 +126,18 @@ export function useQuote() {
     }
   }, [currentQuote, updateCurrentQuote]);
 
+  const updateMealComment = useCallback((uid: string, comment: string) => {
+    if (currentQuote) {
+      const updatedItems = currentQuote.items.map(item =>
+        item.uid === uid ? { ...item, comment } : item
+      );
+      updateCurrentQuote({ ...currentQuote, items: updatedItems });
+    }
+  }, [currentQuote, updateCurrentQuote]);
+
   const subtotal = useMemo(() => {
     return currentQuote?.items.reduce((acc, item) => acc + item.price * item.quantity, 0) ?? 0;
   }, [currentQuote?.items]);
-
-  const getQuoteForAI = useCallback(() => {
-    return currentQuote?.items.map(i => i.name).join(', ') ?? '';
-  }, [currentQuote?.items]);
-
 
   return {
     loading,
@@ -142,7 +146,7 @@ export function useQuote() {
     addMeal,
     updateMealQuantity,
     removeMeal,
+    updateMealComment,
     subtotal,
-    getQuoteForAI,
   };
 }
