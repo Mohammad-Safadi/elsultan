@@ -128,11 +128,19 @@ export function MealSelection({ quoteManager }: { quoteManager: QuoteManager }) 
 
   return (
     <Tabs defaultValue={categories[0]} className="w-full">
-      <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
-        {categories.map(category => (
-          <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
-        ))}
-      </TabsList>
+      <div className="bg-white rounded-lg shadow-lg border border-gray-100 mb-6 p-4">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 min-h-[72px] bg-gray-50 p-2 rounded-lg gap-2">
+          {categories.map(category => (
+            <TabsTrigger 
+              key={category} 
+              value={category}
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary/10 data-[state=active]:to-primary/20 data-[state=active]:text-primary data-[state=active]:font-semibold data-[state=active]:shadow-md data-[state=active]:border-2 data-[state=active]:border-primary/30 data-[state=active]:rounded-lg transition-all duration-300 ease-in-out text-base font-medium hover:bg-gray-100 hover:text-gray-700 flex items-center justify-center py-3 px-2 text-center overflow-hidden whitespace-normal break-words leading-tight"
+            >
+              {category}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </div>
       {categories.map(category => (
         <TabsContent key={category} value={category} className="mt-6">
           <div className="space-y-4">
