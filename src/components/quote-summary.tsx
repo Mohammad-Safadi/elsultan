@@ -10,12 +10,8 @@ import { MinusCircle, PlusCircle, Trash2, Printer, Mail, Download, MessageCircle
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { format } from 'date-fns';
 
-const TAX_RATE = 0.08; // 8%
-
 export function QuoteSummary({ quoteManager }: { quoteManager: QuoteManager }) {
-  const { currentQuote, updateMealQuantity, removeMeal, updateMealComment, subtotal } = quoteManager;
-  const tax = subtotal * TAX_RATE;
-  const total = subtotal + tax;
+  const { currentQuote, updateMealQuantity, removeMeal, updateMealComment } = quoteManager;
 
   const handlePrint = () => {
     window.open('/print', '_blank');
@@ -34,11 +30,7 @@ export function QuoteSummary({ quoteManager }: { quoteManager: QuoteManager }) {
       if (categoryItems.length > 0) {
         body += `${category}:\n`;
         categoryItems.forEach(item => {
-          if (item.price > 0) {
-            body += `- ${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}\n`;
-          } else {
-            body += `- ${item.name} (x${item.quantity})\n`;
-          }
+          body += `- ${item.name} (x${item.quantity})\n`;
           if (item.comment) {
             body += `  Note: ${item.comment}\n`;
           }
@@ -46,14 +38,6 @@ export function QuoteSummary({ quoteManager }: { quoteManager: QuoteManager }) {
         body += '\n';
       }
     });
-    
-    if (subtotal > 0) {
-        body += `Subtotal: $${subtotal.toFixed(2)}\n`;
-        body += `Tax (8%): $${tax.toFixed(2)}\n`;
-        body += `Total: $${total.toFixed(2)}\n`;
-    } else {
-        body += `Total: $0.00\n`;
-    }
     
     body += `\nThank you,\nElsultan Halls`;
     window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -79,7 +63,6 @@ export function QuoteSummary({ quoteManager }: { quoteManager: QuoteManager }) {
       }
     });
     
-    text += `*Total: $${total.toFixed(2)}*`;
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
   };
 
@@ -99,9 +82,6 @@ export function QuoteSummary({ quoteManager }: { quoteManager: QuoteManager }) {
                   <div className="flex items-center">
                     <div className="flex-grow">
                       <p className="font-semibold">{item.name}</p>
-                      {item.price > 0 && (
-                        <p className="text-sm text-muted-foreground">${item.price.toFixed(2)}</p>
-                      )}
                     </div>
                     <div className="flex items-center gap-2">
                       <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => updateMealQuantity(item.uid, item.quantity - 1)}><MinusCircle className="h-4 w-4" /></Button>
@@ -131,21 +111,6 @@ export function QuoteSummary({ quoteManager }: { quoteManager: QuoteManager }) {
         
       </CardContent>
       <CardFooter className="flex-col !p-6 space-y-4">
-        <div className="w-full space-y-2 text-sm">
-          <div className="flex justify-between">
-            <span>Subtotal</span>
-            <span className="font-medium">${subtotal.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Tax ({(TAX_RATE * 100).toFixed(0)}%)</span>
-            <span className="font-medium">${tax.toFixed(2)}</span>
-          </div>
-          <Separator />
-          <div className="flex justify-between text-lg font-bold text-primary">
-            <span className="font-headline">Total</span>
-            <span>${total.toFixed(2)}</span>
-          </div>
-        </div>
         <div className="grid grid-cols-2 gap-2 w-full">
             <Button onClick={handlePrint} variant="outline"><Printer className="me-2 h-4 w-4" /> Print</Button>
             <Button onClick={handlePrint}><Download className="me-2 h-4 w-4" /> Download</Button>

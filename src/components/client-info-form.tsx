@@ -50,12 +50,12 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
   return (
     <Card className="mb-6 shadow-md">
       <CardHeader>
-        <CardTitle className="font-headline text-xl text-primary">Client & Event Details</CardTitle>
+        <CardTitle className="font-headline text-xl text-primary">Client & פרטי אירוע</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className="space-y-2">
-            <Label htmlFor="name" className='font-bold'>Client Name</Label>
+            <Label htmlFor="name" className='font-bold'>שם לקוח</Label>
             <Controller
               name="name"
               control={control}
@@ -63,7 +63,7 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="guestCount" className='font-bold'>Guest Count</Label>
+            <Label htmlFor="guestCount" className='font-bold'>عدد الضيوف</Label>
             <Controller
               name="guestCount"
               control={control}
@@ -79,7 +79,7 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="eventDate" className='font-bold'>Event Date</Label>
+            <Label htmlFor="eventDate" className='font-bold'>תאריך</Label>
             <Controller
               name="eventDate"
               control={control}

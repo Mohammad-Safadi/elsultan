@@ -135,10 +135,6 @@ export function useQuote() {
     }
   }, [currentQuote, updateCurrentQuote]);
 
-  const subtotal = useMemo(() => {
-    return currentQuote?.items.reduce((acc, item) => acc + item.price * item.quantity, 0) ?? 0;
-  }, [currentQuote?.items]);
-
   return {
     loading,
     currentQuote,
@@ -147,6 +143,5 @@ export function useQuote() {
     updateMealQuantity,
     removeMeal,
     updateMealComment,
-    subtotal,
   };
 }
