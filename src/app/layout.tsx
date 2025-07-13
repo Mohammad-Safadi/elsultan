@@ -3,8 +3,7 @@ import { Toaster } from "@/components/ui/toaster"
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Elsultan Halls',
-  description: 'Your Premier Catering Partner - Professional catering services for all events',
+  title: 'قاعة السلطان',
 };
 
 export default function RootLayout({

@@ -10,6 +10,7 @@ const createNewQuote = (): Quote => ({
   id: uuidv4(),
   clientInfo: {
     name: '',
+    phoneNumber: '',
     eventDate: undefined,
     guestCount: 1,
   },

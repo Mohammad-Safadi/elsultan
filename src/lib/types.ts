@@ -16,6 +16,7 @@ export interface SelectedMeal extends MealItem {
 
 export interface ClientInfo {
   name: string;
+  phoneNumber: string;
   eventDate: Date | undefined;
   guestCount: number;
 }

@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 
 type FormData = {
   name: string;
+  phoneNumber: string;
   guestCount: number;
   eventDate: Date | undefined;
 };
@@ -24,6 +25,7 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
   const { control, watch, setValue } = useForm<FormData>({
     defaultValues: {
       name: currentQuote?.clientInfo.name || '',
+      phoneNumber: currentQuote?.clientInfo.phoneNumber || '',
       guestCount: currentQuote?.clientInfo.guestCount || 1,
       eventDate: currentQuote?.clientInfo.eventDate,
     },
@@ -32,6 +34,7 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
   useEffect(() => {
     if (currentQuote) {
       setValue('name', currentQuote.clientInfo.name);
+      setValue('phoneNumber', currentQuote.clientInfo.phoneNumber);
       setValue('guestCount', currentQuote.clientInfo.guestCount);
       setValue('eventDate', currentQuote.clientInfo.eventDate);
     }
@@ -50,16 +53,24 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
   return (
     <Card className="mb-6 shadow-md">
       <CardHeader>
-        <CardTitle className="font-headline text-xl text-primary">Client & פרטי אירוע</CardTitle>
+        <CardTitle className="font-headline text-xl text-primary"> פרטי אירוע</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           <div className="space-y-2">
             <Label htmlFor="name" className='font-bold'>שם לקוח</Label>
             <Controller
               name="name"
               control={control}
               render={({ field }) => <Input id="name" {...field} placeholder="e.g., John & Jane Doe" />}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="phoneNumber" className='font-bold'>מספר נייד</Label>
+            <Controller
+              name="phoneNumber"
+              control={control}
+              render={({ field }) => <Input id="phoneNumber" {...field} placeholder="050-1234567" />}
             />
           </div>
           <div className="space-y-2">

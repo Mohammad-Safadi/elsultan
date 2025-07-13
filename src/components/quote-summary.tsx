@@ -39,7 +39,7 @@ export function QuoteSummary({ quoteManager }: { quoteManager: QuoteManager }) {
       }
     });
     
-    body += `\nThank you,\nElsultan Halls`;
+    body += `\nThank you,\nقاعة السلطان`;
     window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
@@ -49,19 +49,19 @@ export function QuoteSummary({ quoteManager }: { quoteManager: QuoteManager }) {
     
     // Group items by category
     const categories = Array.from(new Set(currentQuote.items.map(item => item.category)));
-    categories.forEach(category => {
-      const categoryItems = currentQuote.items.filter(item => item.category === category);
-      if (categoryItems.length > 0) {
-        text += `*${category}:*\n`;
-        categoryItems.forEach(item => {
-          text += `- ${item.name} (x${item.quantity})\n`;
-          if (item.comment) {
-            text += `  Note: ${item.comment}\n`;
+            categories.forEach(category => {
+          const categoryItems = currentQuote.items.filter(item => item.category === category);
+          if (categoryItems.length > 0) {
+            text += `*${category}:*\n`;
+            categoryItems.forEach(item => {
+              text += `- ${item.name}\n`;
+              if (item.comment) {
+                text += `  Note: ${item.comment}\n`;
+              }
+            });
+            text += '\n';
           }
         });
-        text += '\n';
-      }
-    });
     
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
   };
