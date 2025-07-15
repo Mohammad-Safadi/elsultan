@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // Only run in production
-  if (process.env.NODE_ENV !== 'production') {
-    return NextResponse.next();
-  }
+  // Remove environment check to enforce authentication everywhere
 
   // Get credentials from environment variables with fallbacks
   const username = process.env.BASIC_AUTH_USER || 'admin';
@@ -46,17 +43,6 @@ export function middleware(request: NextRequest) {
 // Configure which paths the middleware should run on
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - _next/webpack-hmr (hot module replacement)
-     * - favicon.ico (favicon file)
-     * - robots.txt (robots file)
-     * - sitemap.xml (sitemap file)
-     * - public folder files (images, etc.)
-     */
     '/((?!api|_next/static|_next/image|_next/webpack-hmr|favicon.ico|robots.txt|sitemap.xml|.*\\.(?:jpg|jpeg|gif|png|svg|ico|css|js|woff|woff2|ttf|eot)).*)',
   ],
 }; 
