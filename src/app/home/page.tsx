@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 'use client';
 
 import { ClientInfoForm } from '@/components/client-info-form';
@@ -7,8 +9,6 @@ import { useQuote } from '@/hooks/use-quote';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-
-export const dynamic = "force-dynamic";
 
 function getUsernameFromCookie() {
   if (typeof document === 'undefined') return '';

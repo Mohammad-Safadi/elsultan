@@ -3,10 +3,11 @@ import { NextRequest, NextResponse } from 'next/server';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Allow static files, /, and /login
+  // Allow static files, /, /login, /logout
   const isPublic =
     pathname === '/' ||
     pathname.startsWith('/login') ||
+    pathname.startsWith('/logout') ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/favicon.ico') ||
     pathname.startsWith('/api') ||
@@ -24,8 +25,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(homeUrl);
   }
 
-  // If user is not authenticated and visits /home or any protected route, redirect to /
-  if (!isPublic && authCookie?.value !== '1') {
+  // If route is public, allow
+  if (isPublic) {
+    return NextResponse.next();
+  }
+
+  // If user is not authenticated, redirect to /
+  if (authCookie?.value !== '1') {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = '/';
     loginUrl.search = '';
