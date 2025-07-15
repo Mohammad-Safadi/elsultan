@@ -1,6 +1,6 @@
-export const dynamic = "force-dynamic";
-
 'use client';
+
+export const dynamic = "force-dynamic";
 
 import { ClientInfoForm } from '@/components/client-info-form';
 import { MealSelection } from '@/components/meal-selection';
