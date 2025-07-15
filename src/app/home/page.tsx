@@ -8,6 +8,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+export const dynamic = "force-dynamic";
+
 function getUsernameFromCookie() {
   if (typeof document === 'undefined') return '';
   const match = document.cookie.match(/username=([^;]+)/);
