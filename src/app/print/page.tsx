@@ -22,10 +22,10 @@ export default function PrintPage() {
             ...currentQuote,
             createdAt: new Date(currentQuote.createdAt),
             clientInfo: {
-              ...currentQuote.clientInfo,
-              eventDate: currentQuote.clientInfo.eventDate ? new Date(currentQuote.clientInfo.eventDate) : undefined,
+                ...currentQuote.clientInfo,
+                eventDate: currentQuote.clientInfo.eventDate ? new Date(currentQuote.clientInfo.eventDate) : undefined,
             },
-          });
+           });
         }
       }
     } catch (error) {
@@ -127,28 +127,28 @@ export default function PrintPage() {
                                         {subCategory}
                                     </h4>
                                     <table className="w-full border-collapse" style={{ direction: 'rtl' }}>
-                                        <thead className="bg-gray-50">
-                                            <tr>
+                <thead className="bg-gray-50">
+                    <tr>
                                                 <th className="p-4 font-headline font-semibold text-gray-600" style={{ padding: '12px 16px', fontWeight: 'bold', borderBottom: '1px solid #e5e7eb' }}>الصنف</th>
                                                 <th className="p-4 font-headline font-semibold text-gray-600" style={{ padding: '12px 16px', fontWeight: 'bold', borderBottom: '1px solid #e5e7eb' }}>الملاحظات</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                    </tr>
+                </thead>
+                <tbody>
                                             {categoryItems.map(item => (
-                                                <tr key={item.uid} className="border-b border-gray-100">
+                        <tr key={item.uid} className="border-b border-gray-100">
                                                     <td className="p-4 font-medium" style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>{item.name}</td>
                                                     <td className="p-4 text-sm text-gray-600" style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>{item.comment || '-'}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
                                 </div>
                             );
                         })}
                     </div>
                 );
             })}
-        </div>
+                </div>
 
         {/* Footer - Signatures */}
         <footer className="mt-12 pt-8 border-t-2 border-gray-200">

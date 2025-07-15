@@ -58,12 +58,12 @@ export function QuoteSummary({ quoteManager }: { quoteManager: QuoteManager }) {
               if (item.comment) {
                 text += `  Note: ${item.comment}\n`;
               }
-            });
+    });
             text += '\n';
           }
         });
     
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   return (
@@ -80,14 +80,14 @@ export function QuoteSummary({ quoteManager }: { quoteManager: QuoteManager }) {
               currentQuote?.items.map(item => (
                 <div key={item.uid} className="space-y-3 p-4 border rounded-lg">
                   <div className="flex items-center">
-                    <div className="flex-grow">
-                      <p className="font-semibold">{item.name}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => updateMealQuantity(item.uid, item.quantity - 1)}><MinusCircle className="h-4 w-4" /></Button>
-                      <span>{item.quantity}</span>
-                      <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => updateMealQuantity(item.uid, item.quantity + 1)}><PlusCircle className="h-4 w-4" /></Button>
-                      <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => removeMeal(item.uid)}><Trash2 className="h-4 w-4" /></Button>
+                  <div className="flex-grow">
+                    <p className="font-semibold">{item.name}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => updateMealQuantity(item.uid, item.quantity - 1)}><MinusCircle className="h-4 w-4" /></Button>
+                    <span>{item.quantity}</span>
+                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => updateMealQuantity(item.uid, item.quantity + 1)}><PlusCircle className="h-4 w-4" /></Button>
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => removeMeal(item.uid)}><Trash2 className="h-4 w-4" /></Button>
                     </div>
                   </div>
                   <div className="space-y-2">

@@ -57,9 +57,9 @@ function MealCard({ meal, onAdd, onRemove, isSelected, selectedQuantity }: {
       </CardContent>
       <CardFooter className="p-4 pt-0 flex justify-between items-center">
         {meal.price > 0 && (
-          <p className="text-lg font-semibold text-primary">
-            ${meal.price.toFixed(2)}
-          </p>
+        <p className="text-lg font-semibold text-primary">
+          ${meal.price.toFixed(2)}
+        </p>
         )}
         <div className="flex gap-2 w-full">
           {isSelected ? (
@@ -88,9 +88,9 @@ function MealCard({ meal, onAdd, onRemove, isSelected, selectedQuantity }: {
               onClick={handleAdd} 
               className="w-full"
             >
-              <PlusCircle className="mr-2 h-4 w-4" />
-              Add
-            </Button>
+          <PlusCircle className="mr-2 h-4 w-4" />
+          Add
+        </Button>
           )}
         </div>
       </CardFooter>
@@ -130,7 +130,7 @@ export function MealSelection({ quoteManager }: { quoteManager: QuoteManager }) 
     <Tabs defaultValue={categories[0]} className="w-full">
       <div className="bg-white rounded-lg shadow-lg border border-gray-100 mb-6 p-4">
         <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 min-h-[72px] bg-gray-50 p-2 rounded-lg gap-2">
-          {categories.map(category => (
+        {categories.map(category => (
             <TabsTrigger 
               key={category} 
               value={category}
@@ -138,8 +138,8 @@ export function MealSelection({ quoteManager }: { quoteManager: QuoteManager }) 
             >
               {category}
             </TabsTrigger>
-          ))}
-        </TabsList>
+        ))}
+      </TabsList>
       </div>
       {categories.map(category => (
         <TabsContent key={category} value={category} className="mt-6">
@@ -147,10 +147,10 @@ export function MealSelection({ quoteManager }: { quoteManager: QuoteManager }) 
             <h2 className="font-headline text-2xl font-semibold text-primary border-b-2 border-primary/20 pb-2">
               {category}
             </h2>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {mealItems
-                .filter(item => item.category === category)
-                .map(item => (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {mealItems
+              .filter(item => item.category === category)
+              .map(item => (
                   <MealCard 
                     key={item.id} 
                     meal={item} 
@@ -159,7 +159,7 @@ export function MealSelection({ quoteManager }: { quoteManager: QuoteManager }) 
                     isSelected={isItemSelected(item.id)}
                     selectedQuantity={getSelectedQuantity(item.id)}
                   />
-                ))}
+              ))}
             </div>
           </div>
         </TabsContent>

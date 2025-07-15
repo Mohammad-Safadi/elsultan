@@ -1,37 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function RootLoginPage() {
+export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isAuth, setIsAuth] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      if (document.cookie.split(';').some(c => c.trim().startsWith('auth=1'))) {
-        setIsAuth(true);
-        router.replace("/home");
-      }
-    }
-  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (username === "admin" && password === "secret123") {
+      // Set cookie (expires in 7 days)
       document.cookie = `auth=1; path=/; max-age=${60 * 60 * 24 * 7}`;
-      document.cookie = `username=${encodeURIComponent(username)}; path=/; max-age=${60 * 60 * 24 * 7}`;
-      router.replace("/home");
+      router.replace("/");
     } else {
       setError("Invalid username or password");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f5f5dc]">
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f5dc" }}>
       <form onSubmit={handleSubmit} style={{ background: "white", padding: 32, borderRadius: 8, boxShadow: "0 2px 8px #0001", minWidth: 320 }}>
         <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 24, textAlign: "center" }}>Login</h1>
         {error && <div style={{ color: "#b91c1c", marginBottom: 16 }}>{error}</div>}
@@ -65,4 +55,4 @@ export default function RootLoginPage() {
       </form>
     </div>
   );
-}
+} 
