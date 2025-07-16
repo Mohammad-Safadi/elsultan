@@ -72,7 +72,7 @@ export default function PrintPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white p-8 print:p-0 relative">
+    <div className="min-h-screen bg-white p-8 print:p-0 relative print-container">
       <div className="max-w-4xl mx-auto bg-white print:max-w-none">
         {/* Header */}
         <header className="flex justify-between items-start pb-8 border-b-2 border-gray-200">
@@ -80,14 +80,12 @@ export default function PrintPage() {
                 <h1 className="font-headline text-5xl font-bold text-[#D4AF37]" style={{ fontFamily: "'Amiri', serif" }}>قاعة السلطان</h1>
             </div>
             <div className="text-right">
-                <h2 className="text-2xl font-headline font-semibold" style={{ fontFamily: "'Amiri', serif" }}>Catering Quote</h2>
                 <p className="text-gray-500 mt-1">Date: {format(new Date(), 'dd/MM/yyyy')}</p>
-                <p className="text-gray-500">Quote ID: {quote.id.split('-')[0]}</p>
             </div>
         </header>
 
         {/* Client Information */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 border-b-2 border-gray-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 border-b-2 border-gray-200 client-info-section">
             <div>
                 <h3 className="font-headline text-lg font-semibold text-gray-700">הזמנה ל:</h3>
                 <p className="mt-2 text-lg font-medium">{quote.clientInfo.name || 'N/A'}</p>
@@ -101,7 +99,7 @@ export default function PrintPage() {
         </div>
 
         {/* Menu Items */}
-        <div className="py-8">
+        <div className="py-8 menu-items-section">
           <h2 className="font-headline text-3xl font-bold text-gray-800 mb-8" style={{ fontFamily: "'Amiri', serif" }}>Menu Items</h2>
 
           {Object.entries(categoryGroups).map(([parentCategory, subCategories]) => {
@@ -111,11 +109,11 @@ export default function PrintPage() {
             );
             if (mergedItems.length === 0) return null;
             return (
-              <div key={parentCategory} className="mb-8 category-section">
-                <h3 className="font-headline text-2xl font-semibold text-gray-700 mb-4" style={{ fontFamily: "'Amiri', serif" }}>
+              <div key={parentCategory} className="mb-8 category-section" style={{ pageBreakInside: 'avoid', pageBreakBefore: 'auto' }}>
+                <h3 className="font-headline text-2xl font-semibold text-gray-700 mb-4" style={{ fontFamily: "'Amiri', serif", pageBreakAfter: 'avoid' }}>
                   {parentCategory}
                 </h3>
-                <table className="w-full border-collapse" style={{ direction: 'rtl' }}>
+                <table className="w-full border-collapse" style={{ direction: 'rtl', pageBreakInside: 'auto' }}>
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="p-4 font-headline font-semibold text-gray-600" style={{ padding: '12px 16px', fontWeight: 'bold', borderBottom: '1px solid #e5e7eb' }}>الصنف</th>
@@ -124,7 +122,7 @@ export default function PrintPage() {
                   </thead>
                   <tbody>
                     {mergedItems.map(item => (
-                      <tr key={item.uid} className="border-b border-gray-100">
+                      <tr key={item.uid} className="border-b border-gray-100" style={{ pageBreakInside: 'avoid' }}>
                         <td className="p-4 font-medium" style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>{item.name}</td>
                         <td className="p-4 text-sm text-gray-600" style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>{item.comment || '-'}</td>
                       </tr>
