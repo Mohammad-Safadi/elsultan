@@ -53,7 +53,11 @@ export default function HomeClient({ username }: { username: string }) {
         </h1>
         <div className="flex-grow"></div>
         <>
-          <span className="me-4 text-green-700 font-bold">Welcome{username ? `, ${username}` : '!'}</span>
+          <span className="me-4 text-green-700 font-bold">
+            {username && username.toLowerCase() === 'naeem'
+              ? 'Welcome naeem أخشلي'
+              : `Welcome${username ? `, ${username}` : '!'}`}
+          </span>
           <button
             onClick={handleLogout}
             disabled={loggingOut}
