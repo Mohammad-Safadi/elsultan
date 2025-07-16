@@ -62,10 +62,11 @@ export default function PrintPage() {
     );
   }
 
-  // Define category groupings
+  // Define merged category groupings for print
   const categoryGroups = {
-    'سلطات': ['سلطات خاصة', 'سلطات السلطان'],
+    'سلطات': ['سلطات السلطان', 'سلطات خاصة'],
     'وجبات أولية': ['وجبات أوّليّة', 'وجبات أوّلية خاصة'],
+    'وجبات رئيسية': ['وجبات رئيسية', 'وجبات رئيسية أكسترا'],
     'وجبات خاصة أكسترا': ['وجبات خاصة أكسترا'],
     'مشروبات': ['مشروبات روحية', 'مشروبات ساخنة', 'مشروبات خفيفة']
   };
@@ -101,69 +102,60 @@ export default function PrintPage() {
 
         {/* Menu Items */}
         <div className="py-8">
-            <h2 className="font-headline text-3xl font-bold text-gray-800 mb-8" style={{ fontFamily: "'Amiri', serif" }}>Menu Items</h2>
-            
-            {Object.entries(categoryGroups).map(([parentCategory, subCategories]) => {
-                const hasItems = subCategories.some(subCategory => 
-                    quote.items.some(item => item.category === subCategory)
-                );
-                
-                if (!hasItems) return null;
-                
-                return (
-                    <div key={parentCategory} className="mb-8 category-section">
-                        <h3 className="font-headline text-2xl font-semibold text-gray-700 mb-4" style={{ fontFamily: "'Amiri', serif" }}>
-                            {parentCategory}
-                        </h3>
-                        
-                        {subCategories.map(subCategory => {
-                            const categoryItems = quote.items.filter(item => item.category === subCategory);
-                            
-                            if (categoryItems.length === 0) return null;
-                            
-                            return (
-                                <div key={subCategory} className="mb-6">
-                                    <h4 className="font-headline text-xl font-medium text-gray-600 mb-3" style={{ fontFamily: "'Amiri', serif" }}>
-                                        {subCategory}
-                                    </h4>
-                                    <table className="w-full border-collapse" style={{ direction: 'rtl' }}>
-                <thead className="bg-gray-50">
-                    <tr>
-                                                <th className="p-4 font-headline font-semibold text-gray-600" style={{ padding: '12px 16px', fontWeight: 'bold', borderBottom: '1px solid #e5e7eb' }}>الصنف</th>
-                                                <th className="p-4 font-headline font-semibold text-gray-600" style={{ padding: '12px 16px', fontWeight: 'bold', borderBottom: '1px solid #e5e7eb' }}>الملاحظات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                                            {categoryItems.map(item => (
-                        <tr key={item.uid} className="border-b border-gray-100">
-                                                    <td className="p-4 font-medium" style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>{item.name}</td>
-                                                    <td className="p-4 text-sm text-gray-600" style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>{item.comment || '-'}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-                                </div>
-                            );
-                        })}
-                    </div>
-                );
-            })}
-                </div>
+          <h2 className="font-headline text-3xl font-bold text-gray-800 mb-8" style={{ fontFamily: "'Amiri', serif" }}>Menu Items</h2>
 
-        {/* Footer - Signatures */}
-        <footer className="mt-12 pt-8 border-t-2 border-gray-200">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 className="font-headline text-lg font-semibold text-gray-700 mb-4">חתימת הלקוח:</h3>
-                    <div className="border-b-2 border-gray-400 h-12 mb-2"></div>
-                    <p className="text-sm text-gray-600 mt-2">Customer Signature</p>
-                </div>
-                <div>
-                    <h3 className="font-headline text-lg font-semibold text-gray-700 mb-4">חתימה מורשית:</h3>
-                    <div className="border-b-2 border-gray-400 h-12 mb-2"></div>
-                    <p className="text-sm text-gray-600 mt-2">قاعة السلطان</p>
-                </div>
+          {Object.entries(categoryGroups).map(([parentCategory, subCategories]) => {
+            // For merged categories, combine items from all subcategories
+            const mergedItems = quote.items.filter(item =>
+              subCategories.includes(item.category)
+            );
+            if (mergedItems.length === 0) return null;
+            return (
+              <div key={parentCategory} className="mb-8 category-section">
+                <h3 className="font-headline text-2xl font-semibold text-gray-700 mb-4" style={{ fontFamily: "'Amiri', serif" }}>
+                  {parentCategory}
+                </h3>
+                <table className="w-full border-collapse" style={{ direction: 'rtl' }}>
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="p-4 font-headline font-semibold text-gray-600" style={{ padding: '12px 16px', fontWeight: 'bold', borderBottom: '1px solid #e5e7eb' }}>الصنف</th>
+                      <th className="p-4 font-headline font-semibold text-gray-600" style={{ padding: '12px 16px', fontWeight: 'bold', borderBottom: '1px solid #e5e7eb' }}>الملاحظات</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {mergedItems.map(item => (
+                      <tr key={item.uid} className="border-b border-gray-100">
+                        <td className="p-4 font-medium" style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>{item.name}</td>
+                        <td className="p-4 text-sm text-gray-600" style={{ padding: '12px 16px', borderBottom: '1px solid #f3f4f6' }}>{item.comment || '-'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Footer - Price and Signatures */}
+        {/* Price Row */}
+        <div className="w-full flex flex-row-reverse justify-end mt-12 mb-2" style={{ direction: 'rtl' }}>
+          <div className="flex flex-row-reverse items-center gap-2" style={{ minWidth: 0 }}>
+            <div className="border-b-2 border-gray-400 h-8" style={{ minWidth: 80, maxWidth: 200, width: 200 }}></div>
+            <span className="font-headline text-lg font-semibold text-gray-700" style={{ minWidth: 60, textAlign: 'right', whiteSpace: 'nowrap' }}>מחיר:</span>
+          </div>
+        </div>
+        {/* Signatures */}
+        <footer className="pt-8 border-t-2 border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="font-headline text-lg font-semibold text-gray-700 mb-4">חתימת הלקוח:</h3>
+              <div className="border-b-2 border-gray-400 h-12 mb-2"></div>
             </div>
+            <div>
+              <h3 className="font-headline text-lg font-semibold text-gray-700 mb-4">חתימה מורשית:</h3>
+              <div className="border-b-2 border-gray-400 h-12 mb-2"></div>
+            </div>
+          </div>
         </footer>
       </div>
 

@@ -13,7 +13,7 @@ export const mealItems: MealItem[] = [
 },
 {
   id: 901,
-  name: 'بيرة (חביט)',
+  name: 'بيرة (חבית)',
   category: 'مشروبات روحية',
   price: 0,
   image: 'https://placehold.co/600x400.png',
@@ -272,7 +272,7 @@ export const mealItems: MealItem[] = [
 },
 {
   id: 401,
-  name: 'جات عرايس الشيف',
+  name: 'جاط عرايس الشيف',
   category: 'وجبات أوّليّة',
   price: 0,
   image: 'https://placehold.co/600x400.png',
@@ -371,7 +371,7 @@ export const mealItems: MealItem[] = [
 },
 {
   id: 412,
-  name: 'جات كباب تركي مشوي مع الباذنجان',
+  name: 'جاط كباب تركي مشوي مع الباذنجان',
   category: 'وجبات أوّليّة',
   price: 0,
   image: 'https://placehold.co/600x400.png',
@@ -499,7 +499,7 @@ export const mealItems: MealItem[] = [
 },
 {
   id: 313,
-  name: 'جات خضار لوز وجبنة',
+  name: 'جاط خضار لوز وجبنة',
   category: 'سلطات خاصة',
   price: 0,
   image: 'https://placehold.co/600x400.png',
@@ -508,7 +508,7 @@ export const mealItems: MealItem[] = [
 },
 {
   id: 314,
-  name: 'جات أجبان خاصة',
+  name: 'جاط أجبان خاصة',
   category: 'سلطات خاصة',
   price: 0,
   image: 'https://placehold.co/600x400.png',
