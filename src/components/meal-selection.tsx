@@ -10,12 +10,11 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PlusCircle, Check, MinusCircle } from 'lucide-react';
 
-function MealCard({ meal, onAdd, onRemove, isSelected, selectedQuantity }: { 
+function MealCard({ meal, onAdd, onRemove, isSelected }: { 
   meal: MealItem; 
   onAdd: (meal: MealItem, comment?: string) => void;
   onRemove: (mealId: number) => void;
   isSelected: boolean;
-  selectedQuantity: number;
 }) {
   const [comment, setComment] = useState('');
 
@@ -30,7 +29,7 @@ function MealCard({ meal, onAdd, onRemove, isSelected, selectedQuantity }: {
 
   return (
     <Card className={`flex flex-col overflow-hidden transition-all hover:shadow-xl relative ${
-      isSelected ? 'ring-2 ring-primary ring-opacity-50' : ''
+      isSelected ? 'ring-2 ring-primary ring-opacity-50 bg-primary/5' : ''
     }`}>
       <CardHeader className="p-4 pb-2">
         <div className="flex items-start justify-between">
@@ -63,25 +62,15 @@ function MealCard({ meal, onAdd, onRemove, isSelected, selectedQuantity }: {
         )}
         <div className="flex gap-2 w-full">
           {isSelected ? (
-            <>
               <Button 
                 size="sm" 
                 variant="outline"
                 onClick={handleRemove}
-                className="flex-1"
+              className="w-full bg-red-50 hover:bg-red-100 text-red-700 border-red-200"
               >
-                <MinusCircle className="mr-2 h-4 w-4" />
+              <Check className="mr-2 h-4 w-4" />
                 Remove
               </Button>
-              <Button 
-                size="sm" 
-                onClick={handleAdd} 
-                className="flex-1 bg-green-600 hover:bg-green-700"
-              >
-                <PlusCircle className="mr-2 h-4 w-4" />
-                Add More ({selectedQuantity})
-              </Button>
-            </>
           ) : (
             <Button 
               size="sm" 
@@ -102,28 +91,23 @@ export function MealSelection({ quoteManager }: { quoteManager: QuoteManager }) 
   const { addMeal, removeMeal, currentQuote } = quoteManager;
 
   const handleAddMeal = (meal: MealItem, comment?: string) => {
-    // Create a meal item with the comment
+    // Prevent adding the same meal more than once (by id)
+    if (currentQuote?.items.some(item => item.id === meal.id)) return;
     const mealWithComment = { ...meal, comment };
     addMeal(mealWithComment);
   };
 
   const handleRemoveMeal = (mealId: number) => {
-    // Find all items with this meal ID and remove them
-    const itemsToRemove = currentQuote?.items.filter(item => item.id === mealId) || [];
-    itemsToRemove.forEach(item => {
-      removeMeal(item.uid);
-    });
+    // Remove the item with this meal ID (only one instance)
+    const itemToRemove = currentQuote?.items.find(item => item.id === mealId);
+    if (itemToRemove) {
+      removeMeal(itemToRemove.uid);
+    }
   };
 
   // Helper function to check if an item is selected
   const isItemSelected = (mealId: number) => {
     return currentQuote?.items.some(item => item.id === mealId) || false;
-  };
-
-  // Helper function to get the quantity of a selected item
-  const getSelectedQuantity = (mealId: number) => {
-    const items = currentQuote?.items.filter(item => item.id === mealId) || [];
-    return items.reduce((total, item) => total + item.quantity, 0);
   };
 
   return (
@@ -157,7 +141,6 @@ export function MealSelection({ quoteManager }: { quoteManager: QuoteManager }) 
                     onAdd={handleAddMeal}
                     onRemove={handleRemoveMeal}
                     isSelected={isItemSelected(item.id)}
-                    selectedQuantity={getSelectedQuantity(item.id)}
                   />
               ))}
             </div>

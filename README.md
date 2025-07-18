@@ -4,7 +4,6 @@ A modern Next.js 13+ app for quote management with protected authentication and 
 
 ## Features
 - **Login page at `/`**: Only authenticated users can access the main app.
-- **Username/password authentication**: (admin / secret123)
 - **Cookie-based session**: Stores `auth` and `username` cookies on login.
 - **Middleware protection**: All routes except `/`, `/login`, and static files are protected.
 - **Welcome message**: Displays the logged-in username on the home page.
@@ -27,8 +26,7 @@ Visit [http://localhost:9002](http://localhost:9002) (or the port you set) in yo
 ### 3. Login
 - Go to `/` (root).
 - Use:
-  - **Username:** `admin`
-  - **Password:** `secret123`
+
 - On success, you are redirected to `/home` and greeted with `Welcome, admin`.
 
 ### 4. Logout

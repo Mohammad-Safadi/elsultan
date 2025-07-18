@@ -144,7 +144,7 @@ export const mealItems: MealItem[] = [
 },
 {
   id: 606,
-  name: '2 سيخ لحمة',
+  name: 'سيخ لحمة 2',
   category: 'وجبات خاصة أكسترا',
   price: 0,
   image: 'https://placehold.co/600x400.png',
@@ -226,7 +226,7 @@ export const mealItems: MealItem[] = [
 },
 {
   id: 506,
-  name: 'فيليه سالمون مشوي بالفرن',
+  name: 'فيليه سلمون مشوي بالفرن',
   category: 'وجبات أوّلية خاصة',
   price: 0,
   image: 'https://placehold.co/600x400.png',
@@ -290,7 +290,7 @@ export const mealItems: MealItem[] = [
 },
 {
   id: 403,
-  name: 'منقط عجل مع الخضار',
+  name: 'منطط عجل مع الخضار',
   category: 'وجبات أوّليّة',
   price: 0,
   image: 'https://placehold.co/600x400.png',
@@ -344,7 +344,7 @@ export const mealItems: MealItem[] = [
 },
 {
   id: 409,
-  name: 'فطر موكرام مع صوص البشاميل',
+  name: 'فطر موكرام مع صوص البشميل',
   category: 'وجبات أوّليّة',
   price: 0,
   image: 'https://placehold.co/600x400.png',
@@ -377,6 +377,15 @@ export const mealItems: MealItem[] = [
   image: 'https://placehold.co/600x400.png',
   dataAiHint: 'initial meal',
   description: 'طبق من قائمة وجبات أوّليّة.',
+},
+{
+  id: 413,
+  name: 'أرنشيني',
+  category: 'وجبات أوّليّة',
+  price: 0,
+  image: 'https://placehold.co/600x400.png',
+  dataAiHint: 'initial meal',
+  description: 'طبق أرنشيني من قائمة وجبات أوّليّة.',
 },
 
     // سلطات خاصة - Special Salads
@@ -625,7 +634,7 @@ export const mealItems: MealItem[] = [
   },
   {
     id: 212,
-    name: 'لبنة متومة مقدمة مع صلصة، وخبز مقلي',
+    name: 'لبنية متومة مقدمة مع صلصة، وخبز مقلي',
     category: 'سلطات السلطان',
     price: 0,
     image: 'https://placehold.co/600x400.png',
@@ -634,7 +643,7 @@ export const mealItems: MealItem[] = [
   },
   {
     id: 213,
-    name: 'طحينة، سماق، بندورة، بقدونس',
+    name: 'طحينة، سك، بندورة، بقدونس',
     category: 'سلطات السلطان',
     price: 0,
     image: 'https://placehold.co/600x400.png',
@@ -652,7 +661,7 @@ export const mealItems: MealItem[] = [
   },
   {
     id: 215,
-    name: 'سلطة جزر حراقة مطبوخة/أنيه',
+    name: 'سلطة جزر حراقة مطبوخة/نيه',
     category: 'سلطات السلطان',
     price: 0,
     image: 'https://placehold.co/600x400.png',
@@ -697,7 +706,7 @@ export const mealItems: MealItem[] = [
   },
   {
     id: 220,
-    name: 'زهرة مقلية ومقلية مقدمة مع صوص الثوم',
+    name: 'زهرة مطلية ومقلية مقدمة مع صوص الثوم',
     category: 'سلطات السلطان',
     price: 0,
     image: 'https://placehold.co/600x400.png',
@@ -760,7 +769,7 @@ export const mealItems: MealItem[] = [
   },
   {
     id: 227,
-    name: 'سلطة جرجير مع الرمان، الشمندر وجبنة فته',
+    name: 'سلطة جرجير مع الرومان، الشمندر وجبنة فته',
     category: 'سلطات السلطان',
     price: 0,
     image: 'https://placehold.co/600x400.png',

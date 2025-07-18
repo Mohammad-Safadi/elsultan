@@ -10,12 +10,13 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
+import { he } from 'date-fns/locale/he';
 import { useEffect } from 'react';
 
 type FormData = {
   name: string;
   phoneNumber: string;
-  guestCount: number;
+  guestCount: string;
   eventDate: Date | undefined;
 };
 
@@ -26,7 +27,7 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
     defaultValues: {
       name: currentQuote?.clientInfo.name || '',
       phoneNumber: currentQuote?.clientInfo.phoneNumber || '',
-      guestCount: currentQuote?.clientInfo.guestCount || 1,
+      guestCount: currentQuote?.clientInfo.guestCount?.toString() || '',
       eventDate: currentQuote?.clientInfo.eventDate,
     },
   });
@@ -35,7 +36,7 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
     if (currentQuote) {
       setValue('name', currentQuote.clientInfo.name);
       setValue('phoneNumber', currentQuote.clientInfo.phoneNumber);
-      setValue('guestCount', currentQuote.clientInfo.guestCount);
+      setValue('guestCount', currentQuote.clientInfo.guestCount?.toString() || '');
       setValue('eventDate', currentQuote.clientInfo.eventDate);
     }
   }, [currentQuote, setValue]);
@@ -81,10 +82,8 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
               render={({ field }) => (
                 <Input
                   id="guestCount"
-                  type="number"
+                  type="text"
                   {...field}
-                  onChange={e => field.onChange(parseInt(e.target.value, 10) || 1)}
-                  min="1"
                 />
               )}
             />
@@ -102,7 +101,7 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
                       className="w-full justify-start text-left font-normal"
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+                      {field.value ? format(field.value, 'PPPP', { locale: he }) : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
@@ -111,6 +110,7 @@ export function ClientInfoForm({ quoteManager }: { quoteManager: QuoteManager })
                       selected={field.value}
                       onSelect={field.onChange}
                       initialFocus
+                      locale={he}
                     />
                   </PopoverContent>
                 </Popover>
